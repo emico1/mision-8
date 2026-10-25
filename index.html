@@ -223,6 +223,30 @@
   .codelist li { margin-bottom: 6px; font-size: 13.5px; }
   .codelist a { color: var(--navy); text-decoration: none; border-bottom: 1px solid var(--line); }
   .codelist a:hover { border-bottom-color: var(--navy-soft); }
+  .rule-card {
+    background: var(--box-bg);
+    border: 1px solid var(--line);
+    border-top: 3px solid var(--navy);
+    border-radius: 3px;
+    padding: 12px 14px;
+    margin-bottom: 12px;
+  }
+  .rule-card.green { border-top-color: var(--green); }
+  .rule-card h3 { font-size: 15px; color: var(--navy); margin: 0 0 6px; }
+  .rule-card.green h3 { color: var(--green); }
+  .rule-card p { font-size: 14px; margin: 6px 0; }
+  .rule-words { display: flex; gap: 18px; flex-wrap: wrap; }
+  .rule-eq {
+    font-family: "SFMono-Regular", Menlo, Consolas, monospace;
+    font-size: 13px;
+    color: var(--navy);
+    background: var(--bg);
+    border-radius: 3px;
+    padding: 6px 10px;
+    margin-top: 8px;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
   .refs { font-size: 13px; color: #4a4a46; padding-left: 18px; }
   .refs li { margin-bottom: 6px; }
 </style>
@@ -281,6 +305,40 @@ c[i][j] = máx(c[i-1][j], c[i][j-1])      si X[i] ≠ Y[j]</span>
   <p class="verdict" id="ssVerdict" aria-live="polite"></p>
 
   <div class="demo-section">
+    <h2>Cómo se arma la regla</h2>
+    <p class="dataset-note">
+      Cada celda c[i][j] guarda qué tan larga es la LCS entre las primeras i letras de X y las primeras j
+      letras de Y. Para llenarla solo se mira la última letra de cada lado. Los ejemplos usan TACO y TOCA.
+    </p>
+
+    <div class="rule-card">
+      <h3>1. Si una de las dos palabras está vacía</h3>
+      <p>No hay nada en común, así que la celda vale 0. Es la fila y la columna marcadas con ∅.</p>
+      <div class="rule-eq">c[0][j] = 0 &nbsp;&nbsp; c[i][0] = 0</div>
+    </div>
+
+    <div class="rule-card green">
+      <h3>2. Si las últimas letras son iguales</h3>
+      <div class="rule-words">
+        <div class="letters"><span class="letter">T</span><span class="letter pick">A</span></div>
+        <div class="letters"><span class="letter">T</span><span class="letter">O</span><span class="letter">C</span><span class="letter pick">A</span></div>
+      </div>
+      <p>TA y TOCA terminan en A. Esa A va seguro en la respuesta. Le quito la A a las dos palabras, veo cuánto valía T contra TOC (vale 1) y le sumo 1. Queda 2.</p>
+      <div class="rule-eq">c[i][j] = c[i-1][j-1] + 1 &nbsp;&nbsp;(la celda en diagonal, más uno)</div>
+    </div>
+
+    <div class="rule-card">
+      <h3>3. Si las últimas letras son diferentes</h3>
+      <div class="rule-words">
+        <div class="letters"><span class="letter">T</span><span class="letter">A</span><span class="letter run">C</span></div>
+        <div class="letters"><span class="letter">T</span><span class="letter run">O</span></div>
+      </div>
+      <p>TAC y TO terminan en C y en O. Las dos no pueden ir al final de la respuesta, así que una sobra. Pruebo quitar la C (TA contra TO vale 1) y pruebo quitar la O (TAC contra T vale 1). Me quedo con el mayor, 1.</p>
+      <div class="rule-eq">c[i][j] = máx(c[i-1][j], c[i][j-1]) &nbsp;&nbsp;(el mayor entre arriba e izquierda)</div>
+    </div>
+  </div>
+
+  <div class="demo-section">
     <h2>Simulador de la tabla</h2>
     <p class="dataset-note">Elige dos secuencias y anima el llenado. Toca cualquier celda para ver de dónde sale su valor.</p>
 
@@ -328,6 +386,23 @@ c[i][j] = máx(c[i-1][j], c[i][j-1])      si X[i] ≠ Y[j]</span>
     </div>
     <div class="diff-out" id="diffOut" aria-label="Resultado del diff"></div>
     <div class="demo-stats" id="diffStats"></div>
+  </div>
+
+  <div class="demo-section">
+    <h2>Conexión con otros problemas de PD</h2>
+    <p class="dataset-note">Todos usan una tabla con dos índices, lo que cambia es qué representan y cuántas opciones hay que probar en cada celda.</p>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Problema</th><th>Qué guarda cada celda</th><th>Opciones por celda</th><th class="num">Tiempo</th></tr></thead>
+        <tbody>
+          <tr class="fastest"><td>LCS</td><td>Inicio de X contra inicio de Y</td><td>1 o 2</td><td class="num">O(mn)</td></tr>
+          <tr><td>Godbole, cadena de matrices</td><td>Matrices de la i a la j</td><td>Todos los cortes k</td><td class="num">O(n³)</td></tr>
+          <tr><td>Gilbert-Moore, árbol alfabético</td><td>Claves de la i a la j</td><td>Todas las raíces k</td><td class="num">O(n³)</td></tr>
+          <tr><td>Triangulación, Misión 7</td><td>Polígono del vértice i al j</td><td>Todos los vértices k</td><td class="num">O(n³)</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="foot">En los tres de abajo i y j son los extremos de un tramo de una sola secuencia y la tabla se llena por diagonales. En LCS cada índice recorre una secuencia distinta y la tabla se llena por filas.</p>
   </div>
 
   <div class="demo-section">
