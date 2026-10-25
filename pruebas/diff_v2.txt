@@ -1,0 +1,8 @@
+// Suma los elementos del vector
+long long suma(const std::vector<int>& v) {
+    long long s = 0;
+    for (int x : v) {
+        s += x;
+    }
+    return s;
+}

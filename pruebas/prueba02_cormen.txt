@@ -1,0 +1,3 @@
+# Ejemplo del libro de Cormen et al.
+ABCBDAB
+BDCABA

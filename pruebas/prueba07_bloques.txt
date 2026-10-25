@@ -1,0 +1,3 @@
+# Bloques invertidos, 2^3 = 8 LCS distintas de longitud 3
+ABCDEF
+BADCFE

@@ -1,0 +1,3 @@
+# Sin letras en comun, la LCS es vacia
+ABC
+XYZ

@@ -1,0 +1,3 @@
+# Subsecuencia contra subcadena, MTRY es subsecuencia de MONTERREY pero no subcadena
+MONTERREY
+MTRY

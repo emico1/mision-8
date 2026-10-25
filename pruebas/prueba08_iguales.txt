@@ -1,0 +1,3 @@
+# Cadenas iguales, la LCS es la cadena completa
+ALGORITMO
+ALGORITMO

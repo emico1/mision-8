@@ -1,0 +1,2 @@
+# Archivo incompleto, solo trae una secuencia
+ALGORITMO

@@ -1,0 +1,17 @@
+archivo,cpp_largo,js_largo,misma_lcs
+prueba01_taco_toca.txt,2,2,si
+prueba02_cormen.txt,4,4,si
+prueba03_monterrey.txt,4,4,si
+prueba04_adn.txt,20,20,si
+prueba05_sin_comunes.txt,0,0,si
+prueba06_incompleto.txt,error,error,si
+prueba07_bloques.txt,3,3,si
+prueba08_iguales.txt,9,9,si
+prueba09_palabras.txt,8,8,si
+# 9 de 9 iguales
+
+n,cpp_ms,js_ms,veces
+1000,2.59,10.12,3.90
+2000,11.21,39.15,3.49
+4000,76.65,163.74,2.14
+8000,339.91,718.25,2.11

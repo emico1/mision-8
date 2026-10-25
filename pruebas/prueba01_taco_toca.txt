@@ -1,0 +1,3 @@
+# Ejemplo principal del video, LCS de longitud 2 con tres respuestas (TA, TC, TO)
+TACO
+TOCA
